@@ -1,8 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  webpack: (config) => {
+  // Webpack configuration - this will force webpack usage over Turbopack
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    // Add your existing webpack rules
     if (process.env.NODE_ENV === "development") {
       config.module.rules.push({
         test: /\.(jsx|tsx)$/,
@@ -11,6 +12,7 @@ const nextConfig: NextConfig = {
         use: "@dyad-sh/nextjs-webpack-component-tagger",
       });
     }
+    
     return config;
   },
 };
